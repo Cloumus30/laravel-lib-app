@@ -18,11 +18,12 @@ class CreateBukuTable extends Migration
             $table->string('nama');
             $table->string('tahun');
             $table->integer('jumlah_hal');
-            $table->string('foto');
+            $table->string('nama_foto')->nullable();
+            $table->string('link_foto')->nullable();
             $table->string('berat');
-            $table->string('isbn');
-            $table->string('link_beli');
-            $table->text('deskripsi');
+            $table->string('isbn')->nullable();
+            $table->string('link_beli')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->integer('penulis_id');
             $table->integer('kategori_id');
             $table->integer('penerbit_id');

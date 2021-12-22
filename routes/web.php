@@ -22,3 +22,5 @@ Route::get('/buku',[bukuController::class,'semuaBuku']);
 Route::get('/buku/{id}',[bukuController::class,'satuBuku']);
 
 Route::post('/buku-tambah',[bukuController::class,'tambahBuku']);
+Route::post('/buku-update/{id}',[bukuController::class,'updateBuku']);
+Route::delete('/buku-hapus/{id}',[bukuController::class, 'hapusBuku']);

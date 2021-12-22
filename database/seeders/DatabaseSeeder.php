@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PenulisSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(BukuSeeder::class);
+        // $this->call(BukuSeeder::class);
     }
 }

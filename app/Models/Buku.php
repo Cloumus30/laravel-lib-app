@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Buku extends Model
 {
     protected $table = 'buku';
+
+    protected $guarded =[];
     
     public function kategori(){
         return $this->belongsTo(Kategori::class,'kategori_id');
