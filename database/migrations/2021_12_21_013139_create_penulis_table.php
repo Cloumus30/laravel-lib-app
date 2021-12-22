@@ -18,7 +18,8 @@ class CreatePenulisTable extends Migration
             $table->string('nama');
             $table->date('tgl_lahir');
             $table->text('biografi');
-            $table->string('foto');
+            $table->string('nama_foto')->nullable();
+            $table->string('link_foto')->nullable();
             $table->timestamps();
         });
     }

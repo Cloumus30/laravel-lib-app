@@ -22,6 +22,13 @@ class User extends Authenticatable
         'username',
         'password',
         'email',
+        'status',
+        'nama_foto',
+        'link_foto',
+    ];
+
+    protected $attributes=[
+        'role_id'=>2,
     ];
 
     /**

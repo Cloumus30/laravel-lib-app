@@ -21,16 +21,20 @@ class UserSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('admin'),
             'email' => 'admin@admin.com',
-            'foto' => 'img',
-            'role_id' => 1
+            'nama_foto' => null,
+            'link_foto' => null,
+            'role_id' => 1,
+            'status' => true,
         ]);
         User::create([
             'nama' => 'cloudias',
             'username' => 'cloudias',
             'password' => Hash::make('123456'),
             'email' => 'cloudias@gmail.com',
-            'foto' => 'img',
-            'role_id' => 2
+            'nama_foto' => null,
+            'link_foto' => null,
+            'role_id' => 2,
+            'status' => true,
         ]);
     }
 }
