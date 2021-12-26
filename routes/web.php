@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\bukuController;
 use App\Http\Controllers\kategoriController;
+use App\Http\Controllers\loginController;
 use App\Http\Controllers\penerbitController;
 use App\Http\Controllers\penulisController;
 use App\Http\Controllers\superAdminController;
@@ -19,11 +20,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+// Login get Routes
+Route::get('/login',[loginController::class, 'loginPage']);
+Route::get('/logout',[loginController::class, 'logOut']);
+
 // Buku get Routes
 Route::get('/buku',[bukuController::class,'semuaBuku']);
 Route::get('/buku/{id}',[bukuController::class,'satuBuku']);
+Route::get('/buku-tambah',[bukuController::class,'tambahBukuPage']);
 
 // SuperAdmin get Routes
 Route::get('/super-admin/librarian',[superAdminController::class,'semuaUser']);
@@ -37,6 +44,8 @@ Route::get('/penerbit/{id}', [penerbitController::class, 'satuPenerbit']);
 // Kategori get Routes
 Route::get('/kategori-buku',[kategoriController::class, 'semuaKategori']);
 Route::get('/kategori-buku/{id}',[kategoriController::class, 'satuKategori']);
+Route::get('/kategori-buku-update/{id}',[kategoriController::class, 'kategoriUpdatePage']);
+Route::get('/kategori-buku-tambah',[kategoriController::class, 'kategoriTambahPage']);
 
 // Penulis get Routes
 Route::get('/penulis',[penulisController::class,'semuaPenulis']);
@@ -45,6 +54,10 @@ Route::get('/penulis/{id}',[penulisController::class,'satuPenulis']);
 
 
 // #############--------------------####################------------------------#########################
+
+// Login Post Routes
+Route::post('/login',[loginController::class, 'authenticate']);
+
 // Buku post Routes
 Route::post('/buku-tambah',[bukuController::class,'tambahBuku']);
 Route::post('/buku-update/{id}',[bukuController::class,'updateBuku']);

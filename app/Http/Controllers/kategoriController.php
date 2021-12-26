@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class kategoriController extends Controller
 {
+    //Pergi ke Halaman Kategori update
+    public function kategoriUpdatePage($id){
+        $data = Kategori::find($id);
+        return view('kategori.update-kategori',['data'=>$data]);
+    }
+
+    // Pergi ke Halaman Tambah Kategori
+    public function kategoriTambahPage(){
+        return view('kategori.tambah-kategori');
+    }
+
     //Ambil Semua Data kategori
     public function semuaKategori(){
         $data = Kategori::all();
@@ -16,21 +28,23 @@ class kategoriController extends Controller
             $res['notif'] = 'Data Kategori Tidak Ditemukan';
         }
         $res['data'] = $data;
-
-        return $res;
+        // return $res;
+        return view('kategori.index',['data'=>$data]);
     }
 
     // Ambil Satu kategori dengan buku"nya
     public function satuKategori($id){
         $data = Kategori::with('buku')->find($id);
+        // $data = Buku::where('kategori_id',$id)->with('penulis')->get();
         if($data){
             $res['notif'] = 'Data Kategori Ditemukan';
         }else{
             $res['notif'] = 'Data Kategori Tidak Ditemukan';
         }
         $res['data'] = $data;
-
-        return $res;
+        
+        return view('kategori.buku-kategori',['data'=>$data]);
+        // return $res;
     }
 
     // Tambah Data Kategori
@@ -45,7 +59,8 @@ class kategoriController extends Controller
         }
         $res['data'] = $data;
 
-        return $res;
+        // return $res;
+        return redirect('/kategori-buku');
     }
 
     // Update Data Kategori
@@ -61,6 +76,7 @@ class kategoriController extends Controller
         }
         $res['data'] = $data;
 
-        return $res;
+        return redirect('/kategori-buku');
+        // return $res;
     }
 }

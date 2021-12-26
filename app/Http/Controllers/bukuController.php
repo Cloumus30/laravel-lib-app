@@ -3,22 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Kategori;
+use App\Models\Penerbit;
+use App\Models\Penulis;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 
 class bukuController extends Controller
 {
+    //Pergi Ke Halaman Tambah Buku
+    public function tambahBukuPage(){
+        $penulis = Penulis::all();
+        $penerbit = Penerbit::all();
+        $kategori = Kategori::all();
+
+        return view('buku.tambah-buku',['penulis'=>$penulis,'penerbit'=>$penerbit,'kategori'=>$kategori]);
+    }
+
     // Ambil Semua data buku
     public function semuaBuku(){
         $buku = Buku::with('penulis')->with('penerbit')->with('kategori')->get();
-        return $buku;
-        // return view('buku.index',[$buku]);
+        // return $buku;
+        return view('buku.index',['data'=>$buku]);
     }
 
     // Ambil Satu Buku
     public function satuBuku($id){
         $buku = Buku::with('penulis')->with('penerbit')->with('kategori')->find($id);
-        return $buku;
+        // return $buku;
+        return view('buku.detail-buku',['data'=>$buku]);
     }   
     
     // Tambah Buku ke Database
@@ -34,9 +47,10 @@ class bukuController extends Controller
             'penulis_id'=>$request->input('penulis_id'),
             'kategori_id'=>$request->input('kategori_id'),
             'penerbit_id'=>$request->input('penerbit_id'),
-            'librarian_id'=>$request->input('librarian_id'),
+            // 'librarian_id'=>$request->input('librarian_id'),
+            'librarian_id'=>2,
         ];
-        
+        // dd($request->file('foto'));
         if($request->file('foto')){ //cek jika ada file terupload
             $foto = $request->file('foto');
             if($foto->isValid()){ //cek jika foto sudah terupload dengan benar

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{url('css/bootstrap.css')}}">
     <script src="{{url('js/bootstrap.bundle.js')}}"></script>
     @yield('head')
-    <title>Blog | @yield('title')</title>
+    <title>Library | @yield('title')</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -19,26 +19,40 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Dashboard</a>
+                <a class="nav-link" aria-current="page" href="/">Dashboard</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">All Class</a>
+                <a class="nav-link" href="{{url('/kategori-buku')}}">Daftar Kategori</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url('/buku')}}">List Buku</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url('/buku-tambah')}}">Tambah Buku</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Tentang Kami</a>
               </li>
             </ul>
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            
-              <li class="nav-item dropdown d-flex">
-                <img src="{{url('img/github.png')}}" alt="" class="rounded-circle" width="50px" height="50px">
-                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Guest
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="{{url('/login/admin')}}">Login Admin</a></li>
-                  <li><a class="dropdown-item" href="{{url('/login/siswa')}}">Login Siswa</a></li>
-                  <li><a class="dropdown-item" href="{{url('/login/guru')}}">Login Guru</a></li>
-                </ul>
-              </li>   
+              @guest
+              <li class="nav-item">
+                <a class="nav-link" href="{{url('/login')}}">Login</a>
+              </li>    
+              @endguest
+            @auth
+            <li class="nav-item dropdown d-flex">
+              <img src="{{url('img/github.png')}}" alt="" class="rounded-circle" width="50px" height="50px">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{auth()->user()->username}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{url('/logout')}}">Logout</a></li>
+              </ul>
+            </li>   
+            @endauth
+             
             
             </ul>
           </div>
@@ -47,6 +61,37 @@
 
     @yield('body')
 
+    <div class="container my-5">
+      <h1 class="text-center">CONTACT</h1>
+      <div class="d-flex flex-wrap py-5 justify-content-between ms-5 ms-lg-0">
+          <a href="https://wa.me/6281369622964" data-bs-toggle="tooltip" class=" mx-5 my-4 mx-lg-0 my-lg-0" title="62813-6962-2964">
+              <img src="{{url('img/wa.png')}}" alt="" style="width: 130px;">
+          </a>
+
+          <a href="mailto: danapradana30@gmail.com" data-bs-toggle="tooltip" class="mx-5 my-4 mx-lg-0 my-lg-0" title="danapradana30@gmail.com">
+              <img src="{{url('img/email.png')}}" alt="" style="width: 130px;">
+          </a>
+
+          <a href="https://www.linkedin.com/in/cloudias-imani-pradana-971b05204/" data-bs-toggle="tooltip" class="mx-5 my-4 mx-lg-0 my-lg-0" title="linkedin.com/in/cloudias-imani-pradana-971b05204/">
+              <img src="{{url('img/linkedin.png')}}" alt="" style="width: 130px;">
+          </a>
+
+          <a href="https://www.instagram.com/cloudiasimani/" data-bs-toggle="tooltip" class="mx-5 my-4 mx-lg-0 my-lg-0" title="@cloudiasimani">
+              <img src="{{url('img/instagram.png')}}" alt="" style="width: 130px;">
+          </a>
+
+          <a href="https://github.com/Cloumus30" data-bs-toggle="tooltip" class="mx-5 my-4 mx-lg-0 my-lg-0" title="Cloumus30">
+              <img src="{{url('img/github2.png')}}" alt="" style="width: 130px;">
+          </a>
+
+      </div>
+  </div>
+
+
+
+  <footer class="mt-5 text-center">
+      <p>@Cloudias</p>
+  </footer>
 
     @yield('script')
 </body>
