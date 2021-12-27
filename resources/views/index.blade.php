@@ -20,51 +20,27 @@
         <h2 class="text-center my-5">Selamat Datang di Perpustakaan</h2>
         <div class="row my-5">
             <div class="col-lg-3 col-md-12 mt-5">
+                @foreach ($data as $item)
                 <div class="card mx-sm-auto mx-md-0" style="width: 15rem;">
-                    <img src="{{url('img/github.png')}}" class="card-img-top align-self-center" alt="gambar buku" style="width: 10rem">
+                    @if ($item->link_foto)
+                    <img src="{{$item->link_foto}}" class="card-img-top align-self-center" alt="gambar buku" style="width: 10rem">
+                    @else
+                    <img src="{{url('/img/github.png')}}" class="card-img-top align-self-center" alt="gambar buku" style="width: 10rem">
+                    @endif
+                    
                     <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Penulis: </h6>
-                      <a href="#" class="btn btn-success">Lihat Buku</a>
+                      <h5 class="card-title">{{$item->nama}}</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Penulis: {{$item->penulis->nama}}</h6>
+                      <a href="{{url('/buku/'.$item->id)}}" class="btn btn-success">Lihat Buku</a>
                     </div>
-                </div>
+                </div>    
+                @endforeach
+                
             </div>
 
-            <div class="col-lg-3 col-md-12 mt-5">
-                <div class="card mx-sm-auto mx-md-0" style="width: 15rem;">
-                    <img src="{{url('img/github.png')}}" class="card-img-top align-self-center " alt="gambar buku" style="width: 10rem">
-                    <div class="card-body text-start">
-                      <h5 class="card-title">Card title</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Penulis: </h6>
-                      <a href="#" class="btn btn-success">Lihat Buku</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-12 mt-5">
-                <div class="card mx-sm-auto mx-md-0" style="width: 15rem;">
-                    <img src="{{url('img/github.png')}}" class="card-img-top align-self-center" alt="gambar buku" style="width: 10rem">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Penulis: </h6>
-                      <a href="#" class="btn btn-success">Lihat Buku</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-12 mt-5">
-                <div class="card mx-sm-auto mx-md-0" style="width: 15rem;">
-                    <img src="{{url('img/github.png')}}" class="card-img-top align-self-center" alt="gambar buku" style="width: 10rem">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Penulis: </h6>
-                      <a href="#" class="btn btn-success">Lihat Buku</a>
-                    </div>
-                </div>
-            </div>
             
             <div class="col-12 my-5 text-center">
-                <a href="" class="btn btn-primary">Lihat Buku Selengkapnya</a>
+                <a href="{{url('/buku')}}" class="btn btn-primary">Lihat Buku Selengkapnya</a>
             </div>
         </div>
 

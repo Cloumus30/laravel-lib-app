@@ -6,6 +6,7 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\penerbitController;
 use App\Http\Controllers\penulisController;
 use App\Http\Controllers\superAdminController;
+use App\Models\Buku;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $data = Buku::with('penulis')->get();
+    return view('index',['data'=>$data]);
 });
 
 // Login get Routes
@@ -31,6 +33,7 @@ Route::get('/logout',[loginController::class, 'logOut']);
 Route::get('/buku',[bukuController::class,'semuaBuku']);
 Route::get('/buku/{id}',[bukuController::class,'satuBuku']);
 Route::get('/buku-tambah',[bukuController::class,'tambahBukuPage']);
+Route::get('/buku-update/{id}',[bukuController::class, 'updateBukuPage']);
 
 // SuperAdmin get Routes
 Route::get('/super-admin/librarian',[superAdminController::class,'semuaUser']);

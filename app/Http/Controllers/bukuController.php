@@ -20,6 +20,16 @@ class bukuController extends Controller
         return view('buku.tambah-buku',['penulis'=>$penulis,'penerbit'=>$penerbit,'kategori'=>$kategori]);
     }
 
+    // Pergi ke Halaman Update Buku
+    public function updateBukuPage($id){
+        $buku = Buku::with('penulis')->with('penerbit')->with('kategori')->find($id);
+        $penulis = Penulis::all();
+        $penerbit = Penerbit::all();
+        $kategori = Kategori::all();
+
+        return view('buku.update-buku',['penulis'=>$penulis,'penerbit'=>$penerbit,'kategori'=>$kategori,'buku'=>$buku]);
+    }
+
     // Ambil Semua data buku
     public function semuaBuku(){
         $buku = Buku::with('penulis')->with('penerbit')->with('kategori')->get();
@@ -36,6 +46,9 @@ class bukuController extends Controller
     
     // Tambah Buku ke Database
     public function tambahBuku(Request $request,){
+        $request->validate([
+            'link_beli'=> 'url'
+        ]);
         $req = [
             'nama' => $request->input('nama'),
             'tahun' => $request->input('tahun'),
@@ -70,7 +83,8 @@ class bukuController extends Controller
             "notif" => "Data berhasil dimasukkan",
             "data" => $data,
         ];
-        return $res;
+        // return $res;
+        return redirect('/buku');
     }
 
     // Update Data Buku di Database
@@ -87,7 +101,8 @@ class bukuController extends Controller
             'penulis_id'=>$request->input('penulis_id'),
             'kategori_id'=>$request->input('kategori_id'),
             'penerbit_id'=>$request->input('penerbit_id'),
-            'librarian_id'=>$request->input('librarian_id'),
+            // 'librarian_id'=>$request->input('librarian_id'),
+            'librarian_id'=>2,
         ];
 
         
@@ -112,7 +127,8 @@ class bukuController extends Controller
             "notif" => "Data berhasil diupdate",
             "data" => $data,
         ];
-        return $res;
+        // return $res;
+        return redirect('/buku');
     }
 
     //Hapus Data Buku dari Database
@@ -126,6 +142,7 @@ class bukuController extends Controller
             'notif' => 'Data Berhasil dihapus',
             'data' => $delete,
         ];
-        return $res;
+        // return $res;
+        return redirect('/buku');
     }
 }

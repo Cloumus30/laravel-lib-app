@@ -13,9 +13,9 @@
         <div class="row my-5 justify-content-center">
            <div class="col-5 align-self-center">
                @if ($data->link_foto)
-               <img src="{{$data->link_foto}}" alt="{{$data->nama_foto}}" style="width: 100%" class="text-start">    
+               <img src="{{$data->link_foto}}" alt="{{$data->nama_foto}}" style="width: 80%" class="text-start">    
                @else
-               <img src="{{url('/img/github.png')}}" alt="" style="width: 100%" class="text-start">    
+               <img src="{{url('/img/github.png')}}" alt="" style="width: 80%" class="text-start">    
                @endif
                
            </div>
@@ -74,7 +74,12 @@
                    @else
                    <a href="#" target="_blank" class="btn btn-primary disabled">Lihat Harga</a>
                    @endif
-                
+                   <a href="{{url('/buku-update/'.$data->id)}}" class="btn btn-warning text-white">Edit Buku</a>
+                   <form action="{{url('/buku-hapus/'.$data->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                        <button type="submit" class="btn btn-danger mt-4 text-white">Hapus Buku</button>
+                   </form>
                </div>
                
            </div>
