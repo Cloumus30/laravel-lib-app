@@ -19,8 +19,9 @@
     <div class="container">
         <h2 class="text-center my-5">Selamat Datang di Perpustakaan</h2>
         <div class="row my-5">
+            @foreach ($data as $item)
             <div class="col-lg-3 col-md-12 mt-5">
-                @foreach ($data as $item)
+                
                 <div class="card mx-sm-auto mx-md-0" style="width: 15rem;">
                     @if ($item->link_foto)
                     <img src="{{$item->link_foto}}" class="card-img-top align-self-center" alt="gambar buku" style="width: 10rem">
@@ -37,9 +38,10 @@
                       @endauth
                     </div>
                 </div>    
-                @endforeach
+               
                 
             </div>
+            @endforeach
 
             
             <div class="col-12 my-5 text-center">
