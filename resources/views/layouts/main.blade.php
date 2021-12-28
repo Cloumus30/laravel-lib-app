@@ -8,28 +8,35 @@
     <script src="{{url('js/bootstrap.bundle.js')}}"></script>
     @yield('head')
     <title>Library | @yield('title')</title>
+    <style>
+      html{
+        overflow: auto;
+      }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Cloudy's Class</a>
+          <a class="navbar-brand" href="#">Perpus Cloudy</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/">Dashboard</a>
-              </li>
+              </li> --}}
               <li class="nav-item">
                 <a class="nav-link" href="{{url('/kategori-buku')}}">Daftar Kategori</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{url('/buku')}}">List Buku</a>
               </li>
+              @auth
               <li class="nav-item">
                 <a class="nav-link" href="{{url('/buku-tambah')}}">Tambah Buku</a>
-              </li>
+              </li>    
+              @endauth
               <li class="nav-item">
                 <a class="nav-link" href="#">Tentang Kami</a>
               </li>
@@ -45,10 +52,38 @@
             <li class="nav-item dropdown d-flex">
               <img src="{{url('img/github.png')}}" alt="" class="rounded-circle" width="50px" height="50px">
               <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{auth()->user()->username}}
+                {{auth()->user()->username}} 
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{{url('/logout')}}">Logout</a></li>
+              </ul>
+            </li>   
+
+            <li class="nav-item dropdown d-flex me-4">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin Menu
+              </a>
+              <ul class="dropdown-menu me-5 overflow-hidden" aria-labelledby="navbarDropdown">
+                {{-- menu Buku --}}
+                <li><h6 class="dropdown-header">Menu Buku</h6></li>
+                <li><a class="dropdown-item" href="{{url('/buku-tambah')}}">Tambah Buku</a></li>
+                <li><a class="dropdown-item" href="{{url('/buku-tambah')}}">List Buku</a></li>
+                <li><hr class="dropdown-divider"></li>
+                {{-- Menu Kategori --}}
+                <li><h6 class="dropdown-header">Menu Kategori</h6></li>
+                <li><a class="dropdown-item" href="{{url('/kategori-buku-tambah')}}">Tambah Kategori</a></li>
+                <li><hr class="dropdown-divider"></li>
+                {{-- Menu Penulis --}}
+                <li><h6 class="dropdown-header">Menu Penulis</h6></li>
+                <li><a class="dropdown-item" href="{{url('/login')}}">Tambah Penulis</a></li>
+                <li><hr class="dropdown-divider"></li>
+                {{-- Menu Penerbit --}}
+                <li><h6 class="dropdown-header">Menu Penerbit</h6></li>
+                <li><a class="dropdown-item" href="{{url('/penerbit')}}">List Penerbit</a></li>
+                <li><a class="dropdown-item" href="{{url('/tambah-penerbit')}}">Tambah Penerbit</a></li>
+                <li><hr class="dropdown-divider"></li>
+                {{-- Logout --}}
+                <li><a class="dropdown-item text-danger" href="{{url('/logout')}}">Logout</a></li>
               </ul>
             </li>   
             @endauth

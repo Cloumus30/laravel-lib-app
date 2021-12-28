@@ -32,6 +32,9 @@
                       <h5 class="card-title">{{$item->nama}}</h5>
                       <h6 class="card-subtitle mb-2 text-muted">Penulis: {{$item->penulis->nama}}</h6>
                       <a href="{{url('/buku/'.$item->id)}}" class="btn btn-success">Lihat Buku</a>
+                      @auth
+                      <a href="{{url('/buku-update/'.$item->id)}}" class="btn btn-warning text-white">Edit Buku</a>    
+                      @endauth
                     </div>
                 </div>    
                 @endforeach

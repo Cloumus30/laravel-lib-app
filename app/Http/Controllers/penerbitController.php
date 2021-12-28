@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class penerbitController extends Controller
 {
+    // Pergi ke halaman tambah penerbit
+    public function tambahPenerbitPage(){
+        return view('penerbit.tambah-penerbit');
+    }
+
+    // Pergi Ke Halaman Edit/Update Penerbit
+    public function updatePenerbitPage($id){
+        $data = Penerbit::find($id);
+        return view('penerbit.update-penerbit',['data'=>$data]);
+    }
+
     //Ambil Semua data Penerbit
     public function semuaPenerbit(){
         $data = Penerbit::all();
@@ -17,7 +28,8 @@ class penerbitController extends Controller
         }
         $res['data'] = $data;
 
-        return $res;
+        // return $res;
+        return view('penerbit.index',['data'=>$data]);
     }
 
     // Ambil Satu data Penerbit sesuai dengan id
@@ -49,7 +61,8 @@ class penerbitController extends Controller
         }
         $res['data'] = $data;
 
-        return $res;
+        // return $res;
+        return redirect('/penerbit');
     }
 
     // Update Data Penerbit
@@ -68,7 +81,8 @@ class penerbitController extends Controller
         }
         $res['data'] = $data;
 
-        return $res;
+        // return $res;
+        return redirect('/penerbit');
     }
 
     // 

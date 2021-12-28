@@ -21,19 +21,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $data = Buku::with('penulis')->get();
+    $data = Buku::with('penulis')->take(-3)->get();
     return view('index',['data'=>$data]);
 });
 
 // Login get Routes
-Route::get('/login',[loginController::class, 'loginPage']);
+Route::get('/login',[loginController::class, 'loginPage'])->name('login');
 Route::get('/logout',[loginController::class, 'logOut']);
 
 // Buku get Routes
 Route::get('/buku',[bukuController::class,'semuaBuku']);
 Route::get('/buku/{id}',[bukuController::class,'satuBuku']);
-Route::get('/buku-tambah',[bukuController::class,'tambahBukuPage']);
-Route::get('/buku-update/{id}',[bukuController::class, 'updateBukuPage']);
+Route::get('/buku-tambah',[bukuController::class,'tambahBukuPage'])->middleware('auth');
+Route::get('/buku-update/{id}',[bukuController::class, 'updateBukuPage'])->middleware('auth');
 
 // SuperAdmin get Routes
 Route::get('/super-admin/librarian',[superAdminController::class,'semuaUser']);
@@ -43,12 +43,14 @@ Route::get('/super-admin/aktif-librarian/{id}',[superAdminController::class,'act
 // Penerbit get Routes
 Route::get('/penerbit', [penerbitController::class,'semuaPenerbit']);
 Route::get('/penerbit/{id}', [penerbitController::class, 'satuPenerbit']);
+Route::get('/tambah-penerbit',[penerbitController::class, 'tambahPenerbitPage'])->middleware('auth');
+Route::get('/update-penerbit/{id}',[penerbitController::class, 'updatePenerbitPage'])->middleware('auth');
 
 // Kategori get Routes
 Route::get('/kategori-buku',[kategoriController::class, 'semuaKategori']);
 Route::get('/kategori-buku/{id}',[kategoriController::class, 'satuKategori']);
-Route::get('/kategori-buku-update/{id}',[kategoriController::class, 'kategoriUpdatePage']);
-Route::get('/kategori-buku-tambah',[kategoriController::class, 'kategoriTambahPage']);
+Route::get('/kategori-buku-update/{id}',[kategoriController::class, 'kategoriUpdatePage'])->middleware('auth');
+Route::get('/kategori-buku-tambah',[kategoriController::class, 'kategoriTambahPage'])->middleware('auth');
 
 // Penulis get Routes
 Route::get('/penulis',[penulisController::class,'semuaPenulis']);

@@ -21,7 +21,10 @@
                 <div class="col-6">
                     <ul class="">
                         <li>
-                            <a href="{{url('/kategori-buku-update/'.$item->id)}}" class="btn btn-warning btn-sm">Edit</a>
+                            @auth
+                            <a href="{{url('/kategori-buku-update/'.$item->id)}}" class="btn btn-warning btn-sm">Edit</a>    
+                            @endauth
+                            
                             <a href="{{url('/kategori-buku/'.$item->id)}}">{{$item->nama_kategori}}</a>
                             
                         </li>
