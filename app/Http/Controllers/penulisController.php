@@ -3,15 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penulis;
+use Carbon\Carbon;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class penulisController extends Controller
 {
+    // Pergi ke halaman tambah Penulis
+    public function tambahPenulisPage(){
+        return view('penulis.tambah-penulis');
+    }
+
+    // Pergi ke Halaman Update Penulis
+    public function updatePenulisPage($id){
+        $data = Penulis::find($id);
+        return view('penulis.update-penulis',['data'=>$data]);
+    }
+
     // Ambil semua Data Penulis dan buku karya
     public function semuaPenulis(){
-        $data = Penulis::with('buku')->get();
+        $data = Penulis::all();
         
         if($data){
             $res['notif'] = 'Data Penulis Ditemukan';
@@ -20,7 +32,9 @@ class penulisController extends Controller
         }
         $res['data'] = $data;
 
-        return $res;
+        // return $res;
+        return view('penulis.index',['data'=>$data]);
+        
     }
 
     // Ambil Satu Data Penulis
@@ -33,21 +47,22 @@ class penulisController extends Controller
         }
         $res['data'] = $data;
 
-        return $res;
+        // return $res;
+        return view('penulis.detail-penulis',['data'=>$data]);
     }
 
     // Tambah Data Penulis
     public function tambahPenulis(Request $request){
+        $dt = Carbon::create($request->input('tgl_lahir'))->format('Y-m-d');
         $req = [
             'nama' => $request->nama,
-            'tgl_lahir' => $request->input('tgl_lahir'),
+            'tgl_lahir' => $dt,
             'biografi' => $request->input('biografi'),
         ];
-        
         if($request->file('foto')){
             $foto = $request->file('foto');
             if($foto->isValid()){
-                $uploadedFoto = $foto->storeOnCloudinaryAs('lib_app/penulis','gambar11');
+                $uploadedFoto = $foto->storeOnCloudinaryAs('lib_app/penulis',$req['nama'].$dt);
                 $fotoUrl = $uploadedFoto->getSecurePath();
                 $fotoName = $uploadedFoto->getPublicId();
                 $req['nama_foto'] = $fotoName;
@@ -65,7 +80,8 @@ class penulisController extends Controller
             }
             $res['data'] = $data;
 
-            return $res;
+            // return $res;
+            return redirect('/penulis');
         } 
         catch (\Throwable $th) {
             $res['notif'] = 'Data Penulis gagal ditambahkan, koneksi Database bermasalah';
@@ -78,9 +94,15 @@ class penulisController extends Controller
     // Update Data Penulis
     public function updatePenulis(Request $request, $id){
         $dataLama = Penulis::find($id);
+        $dtName = Carbon::create($request->input('tgl_lahir'))->format('Y-m-d');
+        if(!$request->tgl_lahir){
+            $dt = Carbon::now()->format('Y-m-d');
+        }else{
+            $dt = Carbon::create($request->input('tgl_lahir'))->format('Y-m-d');
+        }
         $req = [
             'nama' => $request->nama,
-            'tgl_lahir' => $request->input('tgl_lahir'),
+            'tgl_lahir' => $dtName,
             'biografi' => $request->input('biografi'),
         ];
         
@@ -90,7 +112,7 @@ class penulisController extends Controller
                 Cloudinary::destroy($dataLama->nama_foto);
             }
             if($foto->isValid()){
-                $uploadedFoto = $foto->storeOnCloudinaryAs('lib_app/penulis','gambar14');
+                $uploadedFoto = $foto->storeOnCloudinaryAs('lib_app/penulis',$req['nama'].$dt);
                 $fotoUrl = $uploadedFoto->getSecurePath();
                 $fotoName = $uploadedFoto->getPublicId();
                 $req['nama_foto'] = $fotoName;
@@ -105,7 +127,8 @@ class penulisController extends Controller
             }
             $res['data'] = $data;
 
-            return $res;
+            // return $res;
+            return redirect('/penulis');
         } 
         catch (\Throwable $th) {
             $res['notif'] = 'Data Penulis gagal diupdate, koneksi Database bermasalah';

@@ -75,7 +75,8 @@
                 <li><hr class="dropdown-divider"></li>
                 {{-- Menu Penulis --}}
                 <li><h6 class="dropdown-header">Menu Penulis</h6></li>
-                <li><a class="dropdown-item" href="{{url('/login')}}">Tambah Penulis</a></li>
+                <li><a class="dropdown-item" href="{{url('/penulis')}}">List Penulis</a></li>
+                <li><a class="dropdown-item" href="{{url('/tambah-penulis')}}">Tambah Penulis</a></li>
                 <li><hr class="dropdown-divider"></li>
                 {{-- Menu Penerbit --}}
                 <li><h6 class="dropdown-header">Menu Penerbit</h6></li>

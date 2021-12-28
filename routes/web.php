@@ -55,6 +55,8 @@ Route::get('/kategori-buku-tambah',[kategoriController::class, 'kategoriTambahPa
 // Penulis get Routes
 Route::get('/penulis',[penulisController::class,'semuaPenulis']);
 Route::get('/penulis/{id}',[penulisController::class,'satuPenulis']);
+Route::get('/tambah-penulis',[penulisController::class,'tambahPenulisPage'])->middleware('auth');
+Route::get('/update-penulis/{id}',[penulisController::class, 'updatePenulisPage'])->middleware('auth');
 
 
 

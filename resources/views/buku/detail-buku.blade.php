@@ -49,7 +49,11 @@
                     </tr>
                     <tr>
                         <td class="text-nowrap">Penulis: </td>
-                        <td>{{$data->penulis->nama}}</td>
+                        <td>
+                            <a href="{{url('/penulis/'.$data->penulis->id)}}">
+                                {{$data->penulis->nama}}
+                            </a>
+                        </td>
                     </tr>
                     <tr>
                         <td class="text-nowrap">Penerbit: </td>

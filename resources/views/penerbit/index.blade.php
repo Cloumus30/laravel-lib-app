@@ -18,7 +18,10 @@
                    <th>Email</th>
                    <th>Telepon</th>
                    <th>Alamat</th>
-                   <th>Kontrol</th>
+                   @auth
+                   <th>Kontrol</th>    
+                   @endauth
+                   
                </tr>
                @foreach ($data as $item)
                <tr>
@@ -29,9 +32,12 @@
                    <td class="text-nowrap">{{$item->email}}</td>
                    <td class="text-nowrap">{{$item->telepon}}</td>
                    <td>{{$item->alamat}}</td>
+                   @auth
                    <td>
-                       <a href="{{url('/update-penerbit/'.$item->id)}}" class="btn btn-warning text-white">Edit</a>
-                   </td>
+                    <a href="{{url('/update-penerbit/'.$item->id)}}" class="btn btn-warning text-white">Edit</a>
+                </td>    
+                   @endauth
+                   
                </tr>
                @endforeach
            </table>

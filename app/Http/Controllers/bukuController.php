@@ -6,6 +6,7 @@ use App\Models\Buku;
 use App\Models\Kategori;
 use App\Models\Penerbit;
 use App\Models\Penulis;
+use Carbon\Carbon;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 
@@ -46,6 +47,7 @@ class bukuController extends Controller
     
     // Tambah Buku ke Database
     public function tambahBuku(Request $request,){
+        $dt = Carbon::now()->format('d-m-Y');
         $request->validate([
             'link_beli'=> 'url'
         ]);
@@ -67,7 +69,7 @@ class bukuController extends Controller
         if($request->file('foto')){ //cek jika ada file terupload
             $foto = $request->file('foto');
             if($foto->isValid()){ //cek jika foto sudah terupload dengan benar
-                $fotoUploaded = $foto->storeOnCloudinaryAs('lib_app','gambar11'); //upload foto ke cloudinary
+                $fotoUploaded = $foto->storeOnCloudinaryAs('lib_app',$request->input('nama').$dt); //upload foto ke cloudinary
                 $fotoUrl = $fotoUploaded->getSecurePath();
                 $fotoName = $fotoUploaded->getPublicId();
                 // $delete = Cloudinary::destroy('dlyofehimvzhhoz7fayy');
@@ -89,6 +91,7 @@ class bukuController extends Controller
 
     // Update Data Buku di Database
     public function updateBuku(Request $request,$id){
+        $dt = Carbon::now()->format('d-m-Y');
         $dataLama = Buku::find($id);
         $req = [
             'nama' => $request->input('nama'),
@@ -112,7 +115,7 @@ class bukuController extends Controller
                 $delete = Cloudinary::destroy($dataLama->nama_foto);
             }
             if($foto->isValid()){ //cek foto baru sudah terupload dengan benar
-                $fotoUploaded = $foto->storeOnCloudinaryAs('lib_app','gambar14');
+                $fotoUploaded = $foto->storeOnCloudinaryAs('lib_app',$request->input('nama').$dt);
                 $fotoUrl = $fotoUploaded->getSecurePath();
                 $namaFoto = $fotoUploaded->getPublicId();
 
